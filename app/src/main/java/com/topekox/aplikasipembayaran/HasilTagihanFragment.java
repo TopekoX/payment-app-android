@@ -3,10 +3,12 @@ package com.topekox.aplikasipembayaran;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -23,6 +25,8 @@ public class HasilTagihanFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    private Button buttonBack;
 
     public HasilTagihanFragment() {
         // Required empty public constructor
@@ -59,6 +63,18 @@ public class HasilTagihanFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_hasil_tagihan, container, false);
+        View fragmentView = inflater.inflate(R.layout.fragment_hasil_tagihan, container, false);
+
+        buttonBack = fragmentView.findViewById(R.id.buttonFragmentHasilTagihanBack);
+        buttonBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentTransaction fragmentTransaction = HasilTagihanFragment.this.getActivity()
+                        .getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.containerFragment, new CekTagihanFragment()).commit();
+            }
+        });
+
+        return fragmentView;
     }
 }
