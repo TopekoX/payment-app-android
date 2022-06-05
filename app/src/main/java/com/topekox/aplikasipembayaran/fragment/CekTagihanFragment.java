@@ -1,4 +1,4 @@
-package com.topekox.aplikasipembayaran.activity;
+package com.topekox.aplikasipembayaran.fragment;
 
 import android.os.Bundle;
 
@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import com.topekox.aplikasipembayaran.fragment.HasilTagihanFragment;
 import com.topekox.aplikasipembayaran.R;
 
 /**
