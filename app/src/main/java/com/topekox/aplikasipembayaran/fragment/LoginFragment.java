@@ -1,5 +1,6 @@
 package com.topekox.aplikasipembayaran.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -7,8 +8,11 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.topekox.aplikasipembayaran.R;
+import com.topekox.aplikasipembayaran.activity.DashboardActivity;
+import com.topekox.aplikasipembayaran.activity.MainActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -25,6 +29,8 @@ public class LoginFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    private Button buttonLogin;
 
     public LoginFragment() {
         // Required empty public constructor
@@ -61,6 +67,17 @@ public class LoginFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_login, container, false);
+        View fragmentView = inflater.inflate(R.layout.fragment_login, container, false);
+
+        buttonLogin = fragmentView.findViewById(R.id.buttonFragmenLogin);
+        buttonLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LoginFragment.this.getActivity(), DashboardActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        return fragmentView;
     }
 }

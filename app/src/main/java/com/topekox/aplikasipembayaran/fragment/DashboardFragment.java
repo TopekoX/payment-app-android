@@ -3,21 +3,22 @@ package com.topekox.aplikasipembayaran.fragment;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.ListView;
 
 import com.topekox.aplikasipembayaran.R;
+import com.topekox.aplikasipembayaran.adapter.TagihanAdapter;
+import com.topekox.aplikasipembayaran.dao.TagihanDao;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link HasilTagihanFragment#newInstance} factory method to
+ * Use the {@link DashboardFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class HasilTagihanFragment extends Fragment {
+public class DashboardFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -28,9 +29,9 @@ public class HasilTagihanFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    private Button buttonBack;
+    private TagihanDao tagihanDao;
 
-    public HasilTagihanFragment() {
+    public DashboardFragment() {
         // Required empty public constructor
     }
 
@@ -40,11 +41,11 @@ public class HasilTagihanFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment HasilTgaihanFragment.
+     * @return A new instance of fragment DashboardFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static HasilTagihanFragment newInstance(String param1, String param2) {
-        HasilTagihanFragment fragment = new HasilTagihanFragment();
+    public static DashboardFragment newInstance(String param1, String param2) {
+        DashboardFragment fragment = new DashboardFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -65,17 +66,13 @@ public class HasilTagihanFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View fragmentView = inflater.inflate(R.layout.fragment_hasil_tagihan, container, false);
+        View fragmentView = inflater.inflate(R.layout.fragment_dashboard, container, false);
 
-        buttonBack = fragmentView.findViewById(R.id.buttonFragmentHasilTagihanBack);
-        buttonBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FragmentTransaction fragmentTransaction = HasilTagihanFragment.this.getActivity()
-                        .getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.containerFragment, new CekTagihanFragment()).commit();
-            }
-        });
+        tagihanDao = new TagihanDao();
+
+        ListView listViewTagihan = fragmentView.findViewById(R.id.listTagihan);
+        listViewTagihan.setAdapter(new TagihanAdapter(DashboardFragment.this.getActivity(),
+                R.layout.list_view_daftar_tagihan, tagihanDao.daftarTagihan()));
 
         return fragmentView;
     }

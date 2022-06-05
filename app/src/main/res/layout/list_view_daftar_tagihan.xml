@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/textViewProduk"
+        android:layout_width="80dp"
+        android:layout_height="97dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="Produk"
+        android:textAlignment="textStart"
+        android:textSize="13sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textViewNoPelanggan"
+        android:layout_width="130dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="16dp"
+        android:text="Nomor Pelanggan"
+        android:textAlignment="textEnd"
+        android:textSize="13sp"
+        app:layout_constraintStart_toEndOf="@+id/textViewProduk"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textViewNamaPelanggan"
+        android:layout_width="0dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="Nama Pelanggan"
+        android:textAlignment="textEnd"
+        android:textSize="13sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/textViewNoPelanggan"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textViewBulanTagihan"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Bulan Tagihan"
+        android:textAlignment="textEnd"
+        android:textSize="13sp"
+        app:layout_constraintEnd_toEndOf="@+id/textViewNoPelanggan"
+        app:layout_constraintHorizontal_bias="0.482"
+        app:layout_constraintStart_toStartOf="@+id/textViewNoPelanggan"
+        app:layout_constraintTop_toBottomOf="@+id/textViewNoPelanggan" />
+
+    <TextView
+        android:id="@+id/textViewTanggalBulanTagihan"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Januari 2022"
+        android:textAlignment="textEnd"
+        android:textSize="13sp"
+        app:layout_constraintEnd_toEndOf="@+id/textViewNamaPelanggan"
+        app:layout_constraintHorizontal_bias="0.515"
+        app:layout_constraintStart_toStartOf="@+id/textViewNamaPelanggan"
+        app:layout_constraintTop_toBottomOf="@+id/textViewNamaPelanggan" />
+
+    <TextView
+        android:id="@+id/textViewJatuhTempo"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:text="Jatuh Tempo"
+        android:textAlignment="textEnd"
+        android:textSize="13sp"
+        app:layout_constraintEnd_toEndOf="@+id/textViewBulanTagihan"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/textViewBulanTagihan"
+        app:layout_constraintTop_toBottomOf="@+id/textViewBulanTagihan" />
+
+    <TextView
+        android:id="@+id/textViewTanggalJatuhTempo"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:text="20 Januari 2022"
+        android:textAlignment="textEnd"
+        android:textSize="13sp"
+        app:layout_constraintEnd_toEndOf="@+id/textViewTanggalBulanTagihan"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/textViewBulanTagihan"
+        app:layout_constraintTop_toBottomOf="@+id/textViewTanggalBulanTagihan" />
+
+    <TextView
+        android:id="@+id/textViewJumlahTotal"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="56dp"
+        android:text="Rp. 100.000, 00"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/textViewTanggalJatuhTempo"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/textViewProduk"
+        app:layout_constraintTop_toBottomOf="@+id/textViewTanggalJatuhTempo" />
+
+    <Button
+        android:id="@+id/buttonBayarListTagihan"
+        android:layout_width="0dp"
+        android:layout_height="59dp"
+        android:layout_marginTop="44dp"
+        android:text="Bayar"
+        app:layout_constraintEnd_toEndOf="@+id/textViewJumlahTotal"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/textViewJumlahTotal"
+        app:layout_constraintTop_toBottomOf="@+id/textViewJumlahTotal" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.MenuItem;
 
 import com.google.android.material.navigation.NavigationView;
+import com.topekox.aplikasipembayaran.fragment.CekTagihanFragment;
 import com.topekox.aplikasipembayaran.fragment.HomeFragment;
 import com.topekox.aplikasipembayaran.fragment.LoginFragment;
 import com.topekox.aplikasipembayaran.R;
@@ -80,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
                         .replace(R.id.containerFragment, fragmentSelected).commit();
 
                 return true;
-            };
+            }
         });
 
     }
