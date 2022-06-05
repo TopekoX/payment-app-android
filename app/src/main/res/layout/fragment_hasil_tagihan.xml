@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".HasilTagihanFragment">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:text="Tagihan Anda"
+            android:textAlignment="center"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.100000024" />
+
+        <TextView
+            android:id="@+id/textTotalHasilTagihan"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="Rp. 100.000"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            android:textStyle="italic"
+            app:layout_constraintEnd_toEndOf="@+id/textView2"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/textView2"
+            app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+        <TextView
+            android:id="@+id/textViewNamaPelanggan"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:text="Nama Pelanggan"
+            android:textAlignment="center"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/textTotalHasilTagihan"
+            app:layout_constraintStart_toStartOf="@+id/textTotalHasilTagihan"
+            app:layout_constraintTop_toBottomOf="@+id/textTotalHasilTagihan" />
+
+        <TableLayout
+            android:id="@+id/tableLayout"
+            android:layout_width="0dp"
+            android:layout_height="200dp"
+            android:layout_marginTop="8dp"
+            android:stretchColumns="1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/textViewNamaPelanggan"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="@+id/textViewNamaPelanggan"
+            app:layout_constraintTop_toBottomOf="@+id/textViewNamaPelanggan"
+            app:layout_constraintVertical_bias="0.083">
+
+            <TableRow>
+
+                <TextView
+                    android:padding="3dip"
+                    android:text="No. Pelanggan : " />
+
+                <TextView
+                    android:gravity="right"
+                    android:padding="3dip"
+                    android:text="01010101010101" />
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    android:padding="3dip"
+                    android:text="Tagihan : " />
+
+                <TextView
+                    android:gravity="right"
+                    android:padding="3dip"
+                    android:text="Rp. 90.000, 00" />
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    android:padding="3dip"
+                    android:text="Biaya Admin : " />
+
+                <TextView
+                    android:gravity="right"
+                    android:padding="3dip"
+                    android:text="Rp. 2.500, 00" />
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    android:padding="3dip"
+                    android:text="Pajak : " />
+
+                <TextView
+                    android:gravity="right"
+                    android:padding="3dip"
+                    android:text="Rp. 1.000, 00" />
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    android:padding="3dip"
+                    android:text="Denda : " />
+
+                <TextView
+                    android:gravity="right"
+                    android:padding="3dip"
+                    android:text="Rp. 500, 00" />
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    android:padding="3dip"
+                    android:text="Lain-lain : " />
+
+                <TextView
+                    android:gravity="right"
+                    android:padding="3dip"
+                    android:text="Rp. 1.000, 00" />
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    android:padding="3dip"
+                    android:text="Total : "
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:gravity="right"
+                    android:padding="3dip"
+                    android:text="Rp. 100.000, 00"
+                    android:textStyle="bold" />
+            </TableRow>
+
+        </TableLayout>
+
+        <Button
+            android:id="@+id/buttonFragmentHasilTagihanBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="21dp"
+            android:text="Kembali"
+            app:layout_constraintStart_toStartOf="@+id/tableLayout"
+            app:layout_constraintTop_toBottomOf="@+id/tableLayout" />
+
+        <Button
+            android:id="@+id/buttonFragmentHasilTagihanBayar"
+            android:layout_width="105dp"
+            android:layout_height="49dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="16dp"
+            android:text="Bayar"
+            app:layout_constraintEnd_toEndOf="@+id/tableLayout"
+            app:layout_constraintTop_toBottomOf="@+id/tableLayout" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>

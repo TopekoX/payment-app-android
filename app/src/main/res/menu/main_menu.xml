@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+
+        <item android:id="@+id/nav_home"
+            android:title="Home"
+            android:icon="@drawable/ic_baseline_home_24" />
+
+        <item android:id="@+id/nav_cek_tagihan"
+            android:title="Cek Tagihan"
+            android:icon="@drawable/ic_baseline_assignment_24" />
+
+    </group>
+
+    <group android:checkableBehavior="single">
+
+        <item android:title="Autentikasi">
+
+            <menu>
+
+                <group>
+
+                    <item android:id="@+id/nav_login"
+                        android:title="Masuk"
+                        android:icon="@drawable/ic_baseline_login_24" />
+
+                    <item android:id="@+id/nav_register"
+                        android:title="Daftar"
+                        android:icon="@drawable/ic_baseline_how_to_reg_24" />
+
+                </group>
+
+            </menu>
+
+        </item>
+
+    </group>
+
+</menu>
