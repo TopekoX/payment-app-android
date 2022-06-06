@@ -68,9 +68,10 @@ public class DashboardFragment extends Fragment {
         // Inflate the layout for this fragment
         View fragmentView = inflater.inflate(R.layout.fragment_dashboard, container, false);
 
-        tagihanDao = new TagihanDao();
+        tagihanDao = new TagihanDao(DashboardFragment.this.getActivity());
 
         ListView listViewTagihan = fragmentView.findViewById(R.id.listTagihan);
+        // DashboardFragment.this.getActivity() -> dapat diganti juga dengan getContext()
         listViewTagihan.setAdapter(new TagihanAdapter(DashboardFragment.this.getActivity(),
                 R.layout.list_view_daftar_tagihan, tagihanDao.daftarTagihan()));
 

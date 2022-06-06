@@ -12,13 +12,23 @@ import android.view.MenuItem;
 
 import com.google.android.material.navigation.NavigationView;
 import com.topekox.aplikasipembayaran.R;
+import com.topekox.aplikasipembayaran.dao.TagihanDao;
+import com.topekox.aplikasipembayaran.domain.Tagihan;
 import com.topekox.aplikasipembayaran.fragment.DashboardFragment;
+
+import java.math.BigDecimal;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DashboardActivity extends AppCompatActivity {
 
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
     private ActionBarDrawerToggle actionBarDrawerToggle;
+
+    private final String TAG = "DASHBOARD_ACTIVITY";
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
@@ -41,6 +51,7 @@ public class DashboardActivity extends AppCompatActivity {
         actionBarDrawerToggle.syncState();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        insertDummyData();
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.containerFragmentDashboard, new DashboardFragment()).commit();
 
@@ -62,5 +73,39 @@ public class DashboardActivity extends AppCompatActivity {
                 return true;
             }
         });
+    }
+
+    public void insertDummyData() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        List<Tagihan> listTagihan = new ArrayList<>();
+        TagihanDao tagihanDao = new TagihanDao(this);
+
+        try {
+            listTagihan.add(new Tagihan("PLN PASCABAYAR", "00000001", "Uzumaki Naruto",
+                    dateFormat.parse("2022-01-01"), dateFormat.parse("2022-01-20"),
+                    new BigDecimal("100000.00")));
+
+            listTagihan.add(new Tagihan("PDAM", "00000022", "Uciha Sasuke",
+                    dateFormat.parse("2022-01-01"), dateFormat.parse("2022-01-20"),
+                    new BigDecimal("80000.00")));
+
+            listTagihan.add(new Tagihan("TELKOM", "090909", "Sikamaru Nara",
+                    dateFormat.parse("2022-01-01"), dateFormat.parse("2022-01-20"),
+                    new BigDecimal("420000.00")));
+
+            listTagihan.add(new Tagihan("TELKOMSEL", "090909", "Abdul Kendeng Bin La Baco",
+                    dateFormat.parse("2022-05-01"), dateFormat.parse("2022-05-20"),
+                    new BigDecimal("420000.00")));
+
+            listTagihan.add(new Tagihan("TELKOMSEL", "090909", "Ridwan Kamil",
+                    dateFormat.parse("2022-05-01"), dateFormat.parse("2022-05-20"),
+                    new BigDecimal("1000000.00")));
+        } catch (ParseException e) {
+            Log.w(TAG, e.getMessage());
+        } finally {
+            for (Tagihan tagihan : listTagihan) {
+                tagihanDao.insertTagihan(tagihan);
+            }
+        }
     }
 }
