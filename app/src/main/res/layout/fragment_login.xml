@@ -19,7 +19,7 @@
         app:layout_constraintVertical_bias="0.100000024" />
 
     <EditText
-        android:id="@+id/editTextUserName"
+        android:id="@+id/editTextLoginUserEmail"
         android:layout_width="0dp"
         android:layout_height="52dp"
         android:layout_marginStart="8dp"
@@ -33,7 +33,7 @@
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
     <EditText
-        android:id="@+id/editTextLoginPassword"
+        android:id="@+id/editTextLoginUserPassword"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
@@ -41,18 +41,29 @@
         android:hint="Password"
         android:inputType="textPassword"
         android:minHeight="48dp"
-        app:layout_constraintEnd_toEndOf="@+id/editTextUserName"
-        app:layout_constraintStart_toStartOf="@+id/editTextUserName"
-        app:layout_constraintTop_toBottomOf="@+id/editTextUserName" />
+        app:layout_constraintEnd_toEndOf="@+id/editTextLoginUserEmail"
+        app:layout_constraintStart_toStartOf="@+id/editTextLoginUserEmail"
+        app:layout_constraintTop_toBottomOf="@+id/editTextLoginUserEmail" />
 
     <Button
         android:id="@+id/buttonFragmenLogin"
-        android:layout_width="391dp"
-        android:layout_height="55dp"
-        android:layout_marginTop="32dp"
+        android:layout_width="0dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="36dp"
         android:text="Sign In"
-        app:layout_constraintEnd_toEndOf="@+id/editTextLoginPassword"
-        app:layout_constraintStart_toStartOf="@+id/editTextLoginPassword"
-        app:layout_constraintTop_toBottomOf="@+id/editTextLoginPassword" />
+        app:layout_constraintEnd_toEndOf="@+id/editTextLoginUserPassword"
+        app:layout_constraintStart_toStartOf="@+id/editTextLoginUserPassword"
+        app:layout_constraintTop_toBottomOf="@+id/editTextLoginUserPassword" />
+
+    <ProgressBar
+        android:id="@+id/progressBarLogin"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="62dp"
+        android:layout_height="68dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:visibility="gone" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

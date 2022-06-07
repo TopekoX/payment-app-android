@@ -5,14 +5,23 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.topekox.aplikasipembayaran.R;
 import com.topekox.aplikasipembayaran.activity.DashboardActivity;
-import com.topekox.aplikasipembayaran.activity.MainActivity;
+import com.topekox.aplikasipembayaran.exception.LoginFailedException;
+import com.topekox.aplikasipembayaran.restclient.PembayaranClient;
+
+import java.io.IOException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -30,7 +39,13 @@ public class LoginFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
+    private final String LOG = "PEMBAYARAN_APP_LOGIN";
+    private String message = null;
+
     private Button buttonLogin;
+    private ProgressBar progressBar;
+
+    private PembayaranClient pembayaranClient = new PembayaranClient();
 
     public LoginFragment() {
         // Required empty public constructor
@@ -70,14 +85,67 @@ public class LoginFragment extends Fragment {
         View fragmentView = inflater.inflate(R.layout.fragment_login, container, false);
 
         buttonLogin = fragmentView.findViewById(R.id.buttonFragmenLogin);
+        progressBar = fragmentView.findViewById(R.id.progressBarLogin);
+
         buttonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(LoginFragment.this.getActivity(), DashboardActivity.class);
-                startActivity(intent);
+                String username = ((EditText) fragmentView.findViewById(R.id.editTextLoginUserEmail))
+                        .getText().toString().trim();
+                String password = ((EditText) fragmentView.findViewById(R.id.editTextLoginUserPassword))
+                        .getText().toString().trim();
+
+                // AsyncTask Alternate
+                ExecutorService executor = Executors.newSingleThreadExecutor();
+
+                // Do something in background
+                executor.execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        Log.w(LOG, "Starting Executing Backend Login Process...");
+
+                        // onPreExecute method
+                        LoginFragment.this.getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                progressBar.setVisibility(View.VISIBLE);
+                                buttonLogin.setEnabled(false);
+                            }
+                        });
+
+                        // Login Process
+                        try {
+                            pembayaranClient.getLogin(username, password);
+                            LoginFragment.this.getActivity().finish();
+                            Intent intent = new Intent(LoginFragment.this.getActivity(), DashboardActivity.class);
+                            startActivity(intent);
+                            message = "Login Success";
+                            Log.w(LOG, message);
+                        } catch (LoginFailedException e) {
+                            message = e.getMessage();
+                            Log.w(LOG, message);
+                        } catch (IOException e) {
+                            message = e.getMessage();
+                            Log.w(LOG, message);
+                        } finally {
+                            Log.w(LOG, "Finishing Executed Backend Login Process...");
+                        }
+
+                        // doPostExecute method
+                        LoginFragment.this.getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                progressBar.setVisibility(View.GONE);
+                                buttonLogin.setEnabled(true);
+                                Toast.makeText(LoginFragment.this.getActivity(), message, Toast.LENGTH_LONG).show();
+                            }
+                        });
+                    }
+                });
             }
         });
 
         return fragmentView;
     }
+
 }
