@@ -46,6 +46,7 @@ public class LoginFragment extends Fragment {
     private ProgressBar progressBar;
 
     private PembayaranClient pembayaranClient = new PembayaranClient();
+    private static final String TAG = "LOGIN_FRAGMENT";
 
     public LoginFragment() {
         // Required empty public constructor
@@ -90,7 +91,7 @@ public class LoginFragment extends Fragment {
         buttonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String username = ((EditText) fragmentView.findViewById(R.id.editTextLoginUserEmail))
+                String email = ((EditText) fragmentView.findViewById(R.id.editTextLoginUserEmail))
                         .getText().toString().trim();
                 String password = ((EditText) fragmentView.findViewById(R.id.editTextLoginUserPassword))
                         .getText().toString().trim();
@@ -115,9 +116,11 @@ public class LoginFragment extends Fragment {
 
                         // Login Process
                         try {
-                            pembayaranClient.getLogin(username, password);
+                            Log.w(TAG, "email: " + email);
+                            pembayaranClient.getLogin(email, password);
                             LoginFragment.this.getActivity().finish();
                             Intent intent = new Intent(LoginFragment.this.getActivity(), DashboardActivity.class);
+                            intent.putExtra("EMAIL", email);
                             startActivity(intent);
                             message = "Login Success";
                             Log.w(LOG, message);

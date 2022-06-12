@@ -6,10 +6,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -17,8 +17,9 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.topekox.aplikasipembayaran.R;
 import com.topekox.aplikasipembayaran.dao.TagihanDao;
-import com.topekox.aplikasipembayaran.domain.Tagihan;
+import com.topekox.aplikasipembayaran.model.Tagihan;
 import com.topekox.aplikasipembayaran.fragment.DashboardFragment;
+import com.topekox.aplikasipembayaran.service.RegistrasiFCMService;
 
 import java.math.BigDecimal;
 import java.text.ParseException;
@@ -31,6 +32,7 @@ public class DashboardActivity extends AppCompatActivity {
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
     private ActionBarDrawerToggle actionBarDrawerToggle;
+    private String token;
 
     private final String TAG = "DASHBOARD_ACTIVITY";
 
@@ -66,7 +68,15 @@ public class DashboardActivity extends AppCompatActivity {
                         }
 
                         // Get new FCM registration token
-                        String token = task.getResult();
+                        token = task.getResult();
+                        String email = getIntent().getStringExtra("EMAIL");
+                        // Menjalankan Service Registrasi FCM
+                        Log.w(TAG, "Mulai Running Registrasi FCM Service...");
+                        Intent intent = new Intent(DashboardActivity.this, RegistrasiFCMService.class);
+                        intent.putExtra("EMAIL", email);
+                        intent.putExtra("TOKEN", token);
+                        Log.w(TAG, "email: " + email +", token: " + token);
+                        startService(intent);
 
                         // Log and toast
                         // String msg = getString(R.string.msg_token_fmt, token);

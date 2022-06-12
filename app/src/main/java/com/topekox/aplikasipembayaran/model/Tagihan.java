@@ -1,4 +1,4 @@
-package com.topekox.aplikasipembayaran.domain;
+package com.topekox.aplikasipembayaran.model;
 
 import java.math.BigDecimal;
 import java.util.Date;

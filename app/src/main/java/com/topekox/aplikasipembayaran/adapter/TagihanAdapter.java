@@ -11,7 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.topekox.aplikasipembayaran.R;
-import com.topekox.aplikasipembayaran.domain.Tagihan;
+import com.topekox.aplikasipembayaran.model.Tagihan;
 
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
