@@ -10,11 +10,11 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class PembayaranDbHelper extends SQLiteOpenHelper {
 
     // If you change the database schema, you must increment the database version.
-    public static final int DATABASE_VERSION = 1;
+    public static final int DATABASE_VERSION = 5;
     public static final String DATABASE_NAME = "Pembayaran.db";
 
-    /* Create table */
-    private static final String SQL_CREATE_ENTRIES =
+    /* Create table tagihan */
+    private static final String SQL_CREATE_TAGIHAN =
             "CREATE TABLE " + SchemaDatabasePembayaran.Tagihan.TABLE_NAME + " (" +
                     SchemaDatabasePembayaran.Tagihan._ID + " INTEGER PRIMARY KEY," +
                     SchemaDatabasePembayaran.Tagihan.PRODUK + " TEXT," +
@@ -25,9 +25,24 @@ public class PembayaranDbHelper extends SQLiteOpenHelper {
                     SchemaDatabasePembayaran.Tagihan.NILAI + " REAL" +
                     ")";
 
-    /* Delete Table */
-    private static final String SQL_DELETE_ENTRIES =
+    /* Create table produk */
+    private static final String SQL_CREATE_PRODUK =
+            "CREATE TABLE " + SchemaDatabasePembayaran.Produk.TABLE_NAME + " (" +
+                    // SchemaDatabasePembayaran.Produk._ID + " INTEGER PRIMARY KEY," +
+                    SchemaDatabasePembayaran.Produk.ID_PRODUK + " INTEGER," +
+                    SchemaDatabasePembayaran.Produk.KODE_PRODUK + " TEXT," +
+                    SchemaDatabasePembayaran.Produk.NAMA_PRODUK + " TEXT," +
+                    "UNIQUE (" + SchemaDatabasePembayaran.Produk.KODE_PRODUK + "," +
+                    SchemaDatabasePembayaran.Produk.KODE_PRODUK + ")  ON CONFLICT REPLACE" +
+                    ")";
+
+    /* Delete Table tagihan */
+    private static final String SQL_DELETE_TAGIHAN =
             "DROP TABLE IF EXISTS " + SchemaDatabasePembayaran.Tagihan.TABLE_NAME;
+
+    /* Delete Table produk */
+    private static final String SQL_DELETE_PRODUK =
+            "DROP TABLE IF EXISTS " + SchemaDatabasePembayaran.Produk.TABLE_NAME;
 
     public PembayaranDbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -35,14 +50,16 @@ public class PembayaranDbHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL(SQL_CREATE_ENTRIES);
+        db.execSQL(SQL_CREATE_TAGIHAN);
+        db.execSQL(SQL_CREATE_PRODUK);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // This database is only a cache for online data, so its upgrade policy is
         // to simply to discard the data and start over
-        db.execSQL(SQL_DELETE_ENTRIES);
+        db.execSQL(SQL_DELETE_TAGIHAN);
+        db.execSQL(SQL_DELETE_PRODUK);
         onCreate(db);
     }
 

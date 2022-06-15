@@ -36,6 +36,7 @@
         </service>
 
         <service android:name=".service.RegistrasiFCMService"/>
+        <service android:name=".service.UpdateDataProdukService"/>
 
     </application>
 

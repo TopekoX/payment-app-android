@@ -32,7 +32,7 @@ public class RegistrasiFCMService extends Service {
                         }
                         Thread.sleep(2000);
                     } catch (Exception e) {
-                        Log.w(TAG, e.getMessage());
+                        Log.e(TAG, e.getMessage());
                     }
                 }
             }

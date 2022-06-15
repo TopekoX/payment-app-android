@@ -23,7 +23,7 @@ public class TagihanDao {
     private PembayaranDbHelper pembayaranDbHelper;
     private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
-    private final String TAG = "TAG_DB";
+    private final String TAG = "TAGIHAN_DAO";
 
     public TagihanDao(Context context) {
         this.context = context;
@@ -45,6 +45,7 @@ public class TagihanDao {
 
         // Insert the new row, returning the primary key value of the new row
         long newRowId = database.insert(SchemaDatabasePembayaran.Tagihan.TABLE_NAME, null, values);
+        database.close();
     }
 
     public List<Tagihan> daftarTagihan() {

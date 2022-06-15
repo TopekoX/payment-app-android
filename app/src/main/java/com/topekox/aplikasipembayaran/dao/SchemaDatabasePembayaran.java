@@ -12,7 +12,7 @@ public final class SchemaDatabasePembayaran {
     private SchemaDatabasePembayaran() {
     }
 
-    /* Inner class that defines the table contents */
+    /* Schema Table Tagihan */
     public static class Tagihan implements BaseColumns {
         public static final String TABLE_NAME = "tagihan";
         public static final String PRODUK = "produk";
@@ -21,5 +21,13 @@ public final class SchemaDatabasePembayaran {
         public static final String BULAN_TAGIHAN = "bulan_tagihan";
         public static final String TANGGAL_JATUH_TEMPO = "tanggal_jatuh_tempo";
         public static final String NILAI = "nilai";
+    }
+
+    /* Schema Table Produk */
+    public static class Produk implements BaseColumns {
+        public static final String TABLE_NAME = "produk";
+        public static final String ID_PRODUK = "id_produk";
+        public static final String KODE_PRODUK = "kode_produk";
+        public static final String NAMA_PRODUK = "nama_produk";
     }
 }

@@ -21,10 +21,12 @@ import com.google.firebase.messaging.RemoteMessage;
 import com.topekox.aplikasipembayaran.R;
 import com.topekox.aplikasipembayaran.activity.DashboardActivity;
 
+import java.util.Map;
+
 /**
  * see more: https://firebase.google.com/docs/cloud-messaging/android/client
  */
-public class FirebaseHandleMessagingService extends FirebaseMessagingService {
+public class  FirebaseHandleMessagingService extends FirebaseMessagingService {
 
     private static final String TAG = "FIREBASE_MSG_SERVICE";
 
@@ -43,17 +45,24 @@ public class FirebaseHandleMessagingService extends FirebaseMessagingService {
             Log.d(TAG, "Message data payload: " + remoteMessage.getData());
         }
 
+        Map<String, String> data = remoteMessage.getData();
+        if (data.get("action").equals("update")) {
+            Intent intentService = new Intent(FirebaseHandleMessagingService.this,
+                    UpdateDataProdukService.class);
+            startService(intentService);
+        }
+
         // Check if message contains a notification payload.
         if (remoteMessage.getNotification() != null) {
             Log.d(TAG, "Message Notification Title: " + remoteMessage.getNotification().getTitle());
             Log.d(TAG, "Message Notification Body: " + remoteMessage.getNotification().getBody());
-        }
 
-        // Also if you intend on generating your own notifications as a result of a received FCM
-        // message, here is where that should be initiated. See sendNotification method below.
-        sendNotification(remoteMessage.getFrom(), remoteMessage.getNotification().getTitle(),
-                remoteMessage.getNotification().getBody());
-        sendNotification(remoteMessage.getNotification().getBody());
+            // Also if you intend on generating your own notifications as a result of a received FCM
+            // message, here is where that should be initiated. See sendNotification method below.
+            sendNotification(remoteMessage.getFrom(), remoteMessage.getNotification().getTitle(),
+                    remoteMessage.getNotification().getBody());
+            sendNotification(remoteMessage.getNotification().getBody());
+        }
     }
 
     private void sendNotification(String from, String title, String body) {
@@ -99,6 +108,7 @@ public class FirebaseHandleMessagingService extends FirebaseMessagingService {
             notificationManager.createNotificationChannel(channel);
         }
 
-        notificationManager.notify(0 /* ID of notification */, notificationBuilder.build());
+        int idNotifikasi = 10;
+        notificationManager.notify(idNotifikasi, notificationBuilder.build());
     }
 }
