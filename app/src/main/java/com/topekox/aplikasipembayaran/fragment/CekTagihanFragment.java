@@ -5,12 +5,20 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Spinner;
 
 import com.topekox.aplikasipembayaran.R;
+import com.topekox.aplikasipembayaran.adapter.ProdukAdapter;
+import com.topekox.aplikasipembayaran.dao.ProdukDao;
+import com.topekox.aplikasipembayaran.model.Produk;
+
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -23,8 +31,11 @@ public class CekTagihanFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    private static final String TAG = "CEK_TAGIHAN";
 
     private Button buttonCekTagihan;
+    private Spinner spinnerProduk;
+    private EditText editTextNoPelanggan;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -67,10 +78,18 @@ public class CekTagihanFragment extends Fragment {
         // Inflate the layout for this fragment
         View fragmentView = inflater.inflate(R.layout.fragment_cek_tagihan, container, false);
 
+        editTextNoPelanggan = fragmentView.findViewById(R.id.editTextNomorPelanggan);
+        spinnerProduk = fragmentView.findViewById(R.id.spinnerProduk);
         buttonCekTagihan = fragmentView.findViewById(R.id.buttonCekTagihan);
         buttonCekTagihan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Produk produkDipilih = (Produk) spinnerProduk.getSelectedItem();
+                String nomorPelanggan = editTextNoPelanggan.getText().toString();
+
+                Log.w(TAG, "Produk: " + produkDipilih.getKode());
+                Log.w(TAG, "Nomor Pelanggan: " + nomorPelanggan);
+
                 FragmentTransaction fragmentTransaction = CekTagihanFragment.this.getActivity()
                         .getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.replace(R.id.containerFragment, new HasilTagihanFragment()).commit();
@@ -78,5 +97,19 @@ public class CekTagihanFragment extends Fragment {
         });
 
         return fragmentView;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        updateSpinner();
+    }
+
+    private void updateSpinner() {
+        List<Produk> produkList = new ProdukDao(getContext()).produkList();
+        spinnerProduk.setAdapter(new ProdukAdapter(
+                CekTagihanFragment.this.getActivity(),
+                android.R.layout.simple_spinner_item,
+                produkList));
     }
 }
