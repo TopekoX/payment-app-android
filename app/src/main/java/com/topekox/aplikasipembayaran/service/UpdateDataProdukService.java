@@ -14,21 +14,27 @@ import android.util.Log;
 
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
+import androidx.core.app.TaskStackBuilder;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
+import com.topekox.aplikasipembayaran.PembayaranConstans;
 import com.topekox.aplikasipembayaran.R;
 import com.topekox.aplikasipembayaran.activity.DashboardActivity;
+import com.topekox.aplikasipembayaran.activity.MainActivity;
 import com.topekox.aplikasipembayaran.dao.ProdukDao;
 import com.topekox.aplikasipembayaran.restclient.PembayaranClient;
 
 public class UpdateDataProdukService extends Service {
 
     private static final String TAG = "UPDATE_PRODUK_SERVICE";
+    private LocalBroadcastManager broadcastManager;
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         new Thread(new Runnable() {
             @Override
             public void run() {
+                broadcastManager = LocalBroadcastManager.getInstance(UpdateDataProdukService.this);
                 // kita juga bisa hapus semua data produk di database sebelum diupdate
                 updateDataProduk();
                 tampilkanNotifikasi();
@@ -48,6 +54,9 @@ public class UpdateDataProdukService extends Service {
         PembayaranClient pembayaranClient = new PembayaranClient();
         Log.i(TAG, "Mengambil data produk");
         pembayaranClient.updateDataProduk(getApplicationContext());
+
+        broadcastManager.sendBroadcast(
+                new Intent(PembayaranConstans.INTENT_UPDATE_PRODUK));
     }
 
     private void tampilkanNotifikasi() {
@@ -56,6 +65,7 @@ public class UpdateDataProdukService extends Service {
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
                 PendingIntent.FLAG_ONE_SHOT);
 
+        int idNotifikasi = 10;
         String channelId = "My Channel ID";
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder notificationBuilder =
@@ -66,6 +76,14 @@ public class UpdateDataProdukService extends Service {
                         .setAutoCancel(true)
                         .setSound(defaultSoundUri)
                         .setContentIntent(pendingIntent);
+
+        Intent intentMain = new Intent(this, MainActivity.class);
+        TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
+        stackBuilder.addParentStack(MainActivity.class);
+        stackBuilder.addNextIntent(intentMain);
+        PendingIntent pi = stackBuilder.getPendingIntent(idNotifikasi, PendingIntent.FLAG_UPDATE_CURRENT);
+        notificationBuilder.setContentIntent(pi);
+        notificationBuilder.setAutoCancel(true);
 
         NotificationManager notificationManager =
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
@@ -78,7 +96,6 @@ public class UpdateDataProdukService extends Service {
             notificationManager.createNotificationChannel(channel);
         }
 
-        int idNotifikasi = 10;
         notificationManager.notify(idNotifikasi, notificationBuilder.build());
     }
 }
