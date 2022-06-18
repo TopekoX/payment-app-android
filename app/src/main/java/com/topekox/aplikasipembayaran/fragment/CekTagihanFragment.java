@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.location.Location;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -22,6 +23,7 @@ import com.topekox.aplikasipembayaran.PembayaranConstans;
 import com.topekox.aplikasipembayaran.R;
 import com.topekox.aplikasipembayaran.adapter.ProdukAdapter;
 import com.topekox.aplikasipembayaran.dao.ProdukDao;
+import com.topekox.aplikasipembayaran.helper.GPSHelper;
 import com.topekox.aplikasipembayaran.model.Produk;
 
 import java.util.List;
@@ -105,6 +107,14 @@ public class CekTagihanFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View fragmentView = inflater.inflate(R.layout.fragment_cek_tagihan, container, false);
+
+        Location posisi = new GPSHelper(getActivity()).getLocation();
+        if (posisi != null) {
+            Log.d(TAG, "Lat: " + posisi.getLatitude());
+            Log.d(TAG, "Lan: " + posisi.getLongitude());
+        } else {
+            Log.e(TAG, "Posisi tidak bisa didapatkan");
+        }
 
         editTextNoPelanggan = fragmentView.findViewById(R.id.editTextNomorPelanggan);
         spinnerProduk = fragmentView.findViewById(R.id.spinnerProduk);
